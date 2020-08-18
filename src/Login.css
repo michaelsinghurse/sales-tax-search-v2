@@ -1,0 +1,55 @@
+#login {
+  background-color: white;
+  width: 95%;
+  max-width: 30rem;
+  margin: 50px auto;
+  border: 1px solid gray;
+  border-radius: 3px;
+  box-shadow: 3px 3px gray;
+  padding: 50px;
+}
+
+#login h1 {
+  color: royalblue;
+  text-align: center;
+}
+
+#login fieldset {
+  border: none;
+}
+
+#login dt {
+  margin: 20px 0 5px;
+}
+
+#login input {
+  width: 100%;
+  padding: 5px;
+}
+
+#login button {
+  width: 100%;
+  background-color: royalblue;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 15px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+#login button:hover {
+  background-color: navy;
+  outline: none;
+}
+
+/*************************************************************
+/ MEDIA QUERIES
+*************************************************************/
+
+/*up to large phone, small tablet*/
+@media only screen and (max-width: 650px) {
+  #login {
+    padding: 50px 15px;
+  }
+}

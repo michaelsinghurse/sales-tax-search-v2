@@ -1,0 +1,308 @@
+/* Search Form */
+
+main {
+  min-height: 30rem;
+  flex: 1 0 auto;
+}
+
+.search-form {
+  width: 95%;
+  max-width: 60rem;
+  margin: 2rem auto 0;
+  color: rgb(255, 50, 0);
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-form fieldset {
+  border: none;
+  max-width: 40rem;
+  padding: 0;
+  margin: 0;
+}
+
+.search-form legend {
+  font-size: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.search-form ul {
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0;
+  list-style-type: none;
+}
+
+.search-form li {
+  margin-right: 1rem;
+}
+
+.search-form label {
+  font-size: 1.2rem;
+  display: block;
+  max-width: 10rem;
+  margin-bottom: 0.3rem;
+}
+
+.search-form input {
+  font-size: 1rem;
+  padding: 0.2rem;
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 0.3rem;
+  color: black;
+  height: 2rem;
+}
+
+.search-form input:focus {
+  border: 2px solid royalblue;
+  border-radius: 0.3rem;
+  outline: none;
+}
+
+.search-form .input-street {
+  width: 14rem;
+}
+
+.search-form .input-city {
+  width: 10rem;
+}
+
+.search-form .input-state,
+.search-form .input-zip {
+  width: 4rem;
+}
+
+.search-form button {
+  background-color: royalblue;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  height: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  align-self: flex-end;
+}
+
+.search-form button:hover,
+.search-form button:focus {
+  background-color: navy;
+  outline: none;
+}
+
+/* Search Results */
+
+.results {
+  width: 95%;
+  max-width: 60rem;
+  margin: 50px auto 0;
+  list-style-type: none;
+}
+
+.results > li {
+  background-color: white;
+  border: 1px solid gray;
+  box-shadow: 3px 3px gray;
+  border-radius: 0.5rem;
+  max-width: 60rem;
+  margin: 1rem auto 2rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.input-and-rates-container {
+  overflow: hidden;
+}
+
+.results-input {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+}
+
+.results-input span {
+  display: inline-block;
+  width: 5rem;
+}
+
+.results-rates {
+  list-style-type: none;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid gray; 
+  box-shadow: 2px 2px gray;
+  border-radius: 0.3rem;
+}
+
+.results-rates > li:nth-of-type(n+2) {
+  margin-top: 0.2rem;
+}
+
+.jurisdiction-list {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.jurisdiction-list > li {
+  width: 12rem;
+}
+
+.jurisdiction-level {
+  max-width: 8rem;
+}
+
+.jurisdiction-name {
+  max-width: 15rem;
+} 
+
+.jurisdiction-name input,
+.jurisdiction-rate input {
+  font-size: 0.9rem;
+  padding: 0.2rem;
+}
+
+.jurisdiction-name input {
+  width: 10rem;
+}
+
+.jurisdiction-rate input {
+  width: 6rem;
+}
+
+.btn-copy {
+  background-color: transparent;
+  height: 1.3rem;
+  width: 1.3rem;
+  border: 1px solid gray;
+  border-radius: 0.2rem;
+  background-image: url('./images/copy.png');
+  background-size: 1rem 1rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.btn-copy:focus,
+.btn-copy:hover {
+  border: 2px solid royalblue;
+  border-radius: 0.2rem;
+  outline: none;
+}
+
+.btn-copy .tooltiptext {
+  visibility: hidden;
+  background-color: gray;
+  color: white; 
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  position: absolute; 
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+}
+
+.btn-copy:focus .tooltiptext,
+.btn-copy:hover .tooltiptext {
+  visibility: visible;
+  border-radius: 0.2rem;
+  outline: none;
+}
+
+.tooltiptext:focus,
+.tooltiptext:hover {
+  outline: none;
+}
+
+.no-rates-message {
+  color: red;
+  max-width: 30rem;
+  margin-top: 20px;
+}
+
+.map-container {
+  margin: 1rem 0;
+}
+
+.map {
+  height: 20rem;
+  max-height: 20rem;
+  width: 20rem;
+  max-width: 20rem;
+  border: 1px solid gray;
+  border-radius: 0.3rem;
+  overflow: hidden;
+}
+
+.map img {
+  width: 100%;
+  height: 100%;
+}
+
+/*************************************************************
+/ MEDIA QUERIES
+*************************************************************/
+
+/*small phone*/
+@media only screen and (max-width: 321px) {
+  .map {
+    height: 18rem;
+    max-height: 18rem;
+    width: 18rem;
+    max-width: 18rem;
+  }
+}
+
+/*up to large phone, small tablet*/
+@media only screen and (max-width: 650px) {
+  .jurisdiction-list > li,
+  .jurisdiction-level,
+  .jurisdiction-name,
+  .jurisdiction-rate {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .jurisdiction-name,
+  .jurisdiction-rate {
+    margin-top: 0.2rem;
+  }
+
+  .jurisdiction-name input,
+  .jurisdiction-rate input {
+    width: 12rem;
+  }
+
+  .results-rates > li:nth-of-type(n+2) .jurisdiction-level {
+    margin-top: 1rem;
+  }
+}
+
+/*up to a tablet*/
+@media only screen and (max-width: 769px) {
+  .search-form button {
+    width: 100%;
+    height: 3rem;
+  }
+
+  .search-form li {
+    margin-right: 1rem;
+  }
+
+  .search-form input {
+    margin-bottom: 0.5rem;
+  }
+
+  .map-container {
+    margin: 1rem auto 2rem;
+  }
+}

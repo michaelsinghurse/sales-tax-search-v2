@@ -1,0 +1,49 @@
+#about {
+  background-color: white;
+  width: 95%;
+  max-width: 60rem;
+  margin: 50px auto;
+  border: 1px solid gray;
+  border-radius: 3px;
+  box-shadow: 3px 3px gray;
+  padding: 15px 50px;
+  min-height: 800px;
+}
+
+#about h1 {
+  color: royalblue;
+}
+
+#about p {
+  margin: 25px 0;
+  line-height: 1.5;
+}
+
+#about address p {
+  margin: 15px 0;
+  line-height: 1;
+  font-style: normal;
+}
+
+#about figure {
+  display: inline-block;
+  border: 0.5px solid gray;
+  border-radius: 1px;
+  overflow: hidden;
+  font-size: 0;
+}
+
+#about img {
+  width: 200px;
+}
+
+/*************************************************************
+/ MEDIA QUERIES
+*************************************************************/
+
+/*up to large phone, small tablet*/
+@media only screen and (max-width: 650px) {
+  #about {
+    padding: 15px;
+  }
+}
