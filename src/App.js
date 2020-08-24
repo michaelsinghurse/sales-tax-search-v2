@@ -1,5 +1,4 @@
 import React from 'react';
-//import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -7,8 +6,6 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-// TODO: import usa counties svg
-// TODO: import CSS
 import Search from "./Search";
 import About from "./About";
 import Login from "./Login";
