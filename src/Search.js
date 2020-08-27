@@ -1,39 +1,71 @@
 import React from "react";
 import "./Search.css";
+import AddressForm from "./AddressForm";
+import SearchResults from "./SearchResults";
 
-export default function Search() {
-  return (
-    <div id="search">
-      <form action="#" method="get" className="search-form">
-        <fieldset>
-          <legend>Enter Your Sales Location</legend>
-          <ul> 
-            <li>
-              <label htmlFor="street" className="label-street">Street:</label>
-              <input id="street" type="text" className="input-street" required/>
-            </li>
-            <li>
-              <label htmlFor="city">City:</label>
-              <input id="city" type="text" className="input-city" required/>
-            </li>
-            <li>
-              <label htmlFor="state">State:</label>
-              <input id="state" type="text" className="input-state"
-                pattern="[A-Za-z]{2}" 
-                title="Two letter state abbreviation" required/>
-            </li>
-            <li>
-              <label htmlFor="zip">Zip:</label>
-              <input id="zip" type="text" className="input-zip" 
-                pattern="\d{5}"
-                title="Five digit zip code" required/>
-            </li>
-          </ul> 
-        </fieldset>
-        <button type="submit">Find Rates</button>
-      </form>
-      <ul className="results" aria-live="assertive"> 
-      </ul>
-    </div>
-  );
+export default class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = { 
+      results: [],
+      searchId: 1,
+    };
+    
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+  
+  handleFormSubmit(address) {
+    console.log("Handling submit from withing Search class");
+    // send a get request to the server with the address
+    // append the both the address and response to this.state.results
+   
+    // TODO: temp values
+    const inputs = {
+      street: "815 Centennial Centre Blvd Apt 57",
+      city: "Hobart",
+      state: "WI",
+      zip: "54155",
+      searchId: this.state.searchId,
+    };
+
+    const location = {
+      city: "HOBART",
+      county: "BROWN",
+      state: "WI",
+      latLng: "45,-88",
+    };
+
+    const rates = {
+      totalRate: "0.055",
+      stateRate: "0.05",
+      countyRate: "0.005",
+      cityRate: "0",
+      totalDistrictRate: "0",
+    };
+
+    const searchResults = {
+      inputs,
+      location,
+      rates,
+    };
+    
+    this.setState((state, _props) => {
+      const results = [...state.results];
+      results.push(searchResults);
+      return {
+        results,
+        searchId: state.searchId + 1,
+      };
+    });
+  }
+
+  render() {
+    return (
+      <div id="search">
+        <AddressForm onFormSubmit={this.handleFormSubmit} />
+        <SearchResults results={this.state.results} />
+      </div>
+    );
+  }
 }
