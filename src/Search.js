@@ -33,7 +33,7 @@ export default class Search extends React.Component {
       city: "HOBART",
       county: "BROWN",
       state: "WI",
-      latLng: "45,-88",
+      latLng: JSON.stringify({ lat: 39.409999, lng: -87.4022146 }),
     };
 
     const rates = {
