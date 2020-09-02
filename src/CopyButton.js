@@ -3,35 +3,28 @@ import React from "react";
 export default class CopyButton extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
-    console.log(this.props.targetId);
-    console.log(event.target.nodeName);
-    /*
-    const id = this.props.inputs.searchId;
-    
-    // eslint-disable-next-line no-undef
-    const clipboard = new ClipboardJS(`#search${id} .btn-copy`);
+    const tooltipContainer = event.currentTarget.children[0];
+    const input = document.querySelector(this.props.targetId);
+    input.select();
 
-    clipboard.on("success", event => {
-      const $tooltip = $(event.trigger).find(".tooltiptext");
-      $tooltip.text("Copied!");
-      setTimeout(() => {
-        $tooltip.text("Copy");
-      }, 3 * 1000);
-    });
-
-    clipboard.on("error", event => {
-      const $tooltip = $(event.target).find(".tooltiptext");
-      $tooltip.text("Press Ctrl+C to copy");
-      setTimeout(() => {
-        $tooltip.text("Copy");
-      }, 3 * 1000);
-    });
-    */
+    let tooltipText;
+    navigator.clipboard.writeText(input.value)
+      .then(() => {
+        tooltipText = "Copied!"; 
+      })
+      .catch(_error => {
+        tooltipText = "Press Ctrl+C to copy!";
+      })
+      .finally(() => {
+        tooltipContainer.innerText = tooltipText;
+        setTimeout(() => {
+          tooltipContainer.innerText = "Copy";
+        }, 3 * 1000);
+      });
   }
 
   render() {
