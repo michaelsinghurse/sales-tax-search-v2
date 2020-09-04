@@ -1,6 +1,6 @@
 import React from "react";
 import "./Search.css";
-import AddressForm from "./AddressForm";
+import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
 
 export default class Search extends React.Component {
@@ -62,7 +62,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <div id="search">
-        <AddressForm onFormSubmit={this.handleFormSubmit} />
+        <SearchForm onFormSubmit={this.handleFormSubmit} />
         <SearchResults results={this.state.results} />
       </div>
     );
