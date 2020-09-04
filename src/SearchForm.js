@@ -1,5 +1,25 @@
 import React from "react";
 
+// TODO:
+// Street and City are required fields, but there will only be values in the
+// errors object for them if the user enters values. If they are simply skipped,
+// the values will remain empty strings and the form will validated.
+
+const areThereErrors = errorsObject => {
+  return Object.values(errorsObject).some(value => value !== "");
+};
+
+const makeErrorsListItems = errorsObject => {
+  const listItems = [];
+  for (let key in errorsObject) {
+    const value = errorsObject[key];
+    if (value) {
+      listItems.push(<li key={key}>{value}</li>);
+    }
+  }
+  return listItems;
+};
+
 export default class AddressForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +29,12 @@ export default class AddressForm extends React.Component {
       city: "",
       state: "",
       zip: "",
+      errors: {
+        street: "",
+        city: "",
+        state: "",
+        zip: "",
+      },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,17 +42,44 @@ export default class AddressForm extends React.Component {
   }
 
   handleChange(event) {
-    const { id, value } = event.target;
-    console.log(id, value);
-    /*
+    const { name, value } = event.target;
+    const errors = this.state.errors;
+
+    switch (name) {
+      case "street":
+        errors.street = value.length > 0
+          ? ""
+          : "Street is required.";
+        break;
+      case "city":
+        errors.city = value.length > 0 
+          ? ""
+          : "City is required.";
+        break;
+      case "state":
+        errors.state = /^[A-Za-z]{2}$/.test(value)
+          ? ""
+          : "State must contain the two-letter state abbreviation.";
+        break;
+      case "zip":
+        errors.zip = /^\d{5}$/.test(value)
+          ? ""
+          : "Zip must contain the 5-digit zip code.";
+        break;
+      default:
+        break;
+    }
+
     this.setState({
-      [event.target.id]: event.target.value,
+      [name]: value,
+      errors,
     });
-    */
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    
+    if (areThereErrors(this.state.errors)) return;
 
     this.props.onFormSubmit({
       street: this.state.street,
@@ -43,16 +96,13 @@ export default class AddressForm extends React.Component {
     });
   }
   
-  // TODO: form validation
-  // - all inputs are required
-  // - state must be two letters
-  // - zip must be five digits
-  // - use novalidate attribute ("noValidate") on form and input elements?
-
   render() {
+    const errorsList = makeErrorsListItems(this.state.errors);
+
     return (
       <div>
         <form 
+          noValidate
           className="search-form" 
           onSubmit={this.handleSubmit} >
           <fieldset>
@@ -82,7 +132,9 @@ export default class AddressForm extends React.Component {
           </fieldset>
           <button type="submit">Find Rates</button>
         </form>
-        <p>Form error message</p>
+        <ul>
+          {errorsList}
+        </ul>
       </div>
     );
   }
