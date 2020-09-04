@@ -51,8 +51,7 @@ export default class Search extends React.Component {
     };
     
     this.setState((state, _props) => {
-      const results = [...state.results];
-      results.unshift(searchResults); // most recent search is first
+      const results = [searchResults, ...state.results]; // most recent first
       return {
         results,
         searchId: state.searchId + 1,
