@@ -1,9 +1,8 @@
 import React from "react";
 
 // TODO:
-// Street and City are required fields, but there will only be values in the
-// errors object for them if the user enters values. If they are simply skipped,
-// the values will remain empty strings and the form will validated.
+// - style the list of errors.
+// - add the form styling to a separate css file and require it above
 
 const areThereErrors = errorsObject => {
   return Object.values(errorsObject).some(value => value !== "");
@@ -18,6 +17,37 @@ const makeErrorsListItems = errorsObject => {
     }
   }
   return listItems;
+};
+
+const validateElementValue = (elementName, elementValue) => {
+  let errorMessage = "";
+
+  switch (elementName) {
+    case "street":
+      errorMessage = elementValue.trim().length > 0
+        ? ""
+        : "Street is required.";
+      break;
+    case "city":
+      errorMessage = elementValue.trim().length > 0 
+        ? ""
+        : "City is required.";
+      break;
+    case "state":
+      errorMessage = /^[A-Za-z]{2}$/.test(elementValue)
+        ? ""
+        : "State must contain the two-letter state abbreviation.";
+      break;
+    case "zip":
+      errorMessage = /^\d{5}$/.test(elementValue)
+        ? ""
+        : "Zip must contain the 5-digit zip code.";
+      break;
+    default:
+      break;
+  }
+
+  return errorMessage;
 };
 
 export default class AddressForm extends React.Component {
@@ -44,31 +74,8 @@ export default class AddressForm extends React.Component {
   handleChange(event) {
     const { name, value } = event.target;
     const errors = this.state.errors;
-
-    switch (name) {
-      case "street":
-        errors.street = value.length > 0
-          ? ""
-          : "Street is required.";
-        break;
-      case "city":
-        errors.city = value.length > 0 
-          ? ""
-          : "City is required.";
-        break;
-      case "state":
-        errors.state = /^[A-Za-z]{2}$/.test(value)
-          ? ""
-          : "State must contain the two-letter state abbreviation.";
-        break;
-      case "zip":
-        errors.zip = /^\d{5}$/.test(value)
-          ? ""
-          : "Zip must contain the 5-digit zip code.";
-        break;
-      default:
-        break;
-    }
+    
+    errors[name] = validateElementValue(name, value);
 
     this.setState({
       [name]: value,
@@ -78,14 +85,26 @@ export default class AddressForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    
-    if (areThereErrors(this.state.errors)) return;
+
+    const errors = this.state.errors;
+    const elements = event.target.elements;
+
+    for (let index = 0; index < elements.length; index += 1) {
+      const element = elements[index];
+      if (element.nodeName !== "INPUT") continue;
+      errors[element.name] = validateElementValue(element.name, element.value); 
+    }
+
+    if (areThereErrors(errors)) {
+      this.setState({ errors });
+      return;
+    } 
 
     this.props.onFormSubmit({
-      street: this.state.street,
-      city: this.state.city,
-      state: this.state.state,
-      zip: this.state.zip,
+      street: this.state.street.trim(),
+      city: this.state.city.trim(),
+      state: this.state.state.trim(),
+      zip: this.state.zip.trim(),
     });
 
     this.setState({
@@ -93,6 +112,7 @@ export default class AddressForm extends React.Component {
       city: "",
       state: "",
       zip: "",
+      errors,
     });
   }
   
