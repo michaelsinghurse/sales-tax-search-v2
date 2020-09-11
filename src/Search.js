@@ -16,19 +16,11 @@ export default class Search extends React.Component {
   }
   
   handleFormSubmit(address) {
-    console.log("Handling submit from withing Search class");
     // send a get request to the server with the address
     // append the both the address and response to this.state.results
-   
-    // TODO: temp values
-    const inputs = {
-      street: "815 Centennial Centre Blvd Apt 57",
-      city: "Hobart",
-      state: "WI",
-      zip: "54155",
-      searchId: this.state.searchId,
-    };
-
+    
+    address.searchId = this.state.searchId;
+    
     const location = {
       city: "HOBART",
       county: "BROWN",
@@ -45,7 +37,7 @@ export default class Search extends React.Component {
     };
 
     const searchResults = {
-      inputs,
+      inputs: address,
       location,
       rates,
     };
