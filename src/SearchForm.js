@@ -1,9 +1,5 @@
 import React from "react";
 
-// TODO:
-// - style the list of errors.
-// - add the form styling to a separate css file and require it above
-
 const areThereErrors = errorsObject => {
   return Object.values(errorsObject).some(value => value !== "");
 };
@@ -13,7 +9,7 @@ const makeErrorsListItems = errorsObject => {
   for (let key in errorsObject) {
     const value = errorsObject[key];
     if (value) {
-      listItems.push(<li key={key}>{value}</li>);
+      listItems.push(<li key={key}>{"\u26a0" + value}</li>);
     }
   }
   return listItems;
@@ -152,7 +148,7 @@ export default class AddressForm extends React.Component {
           </fieldset>
           <button type="submit">Find Rates</button>
         </form>
-        <ul>
+        <ul className="search-form-errors">
           {errorsList}
         </ul>
       </div>

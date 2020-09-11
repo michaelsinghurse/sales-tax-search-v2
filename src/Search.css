@@ -93,6 +93,14 @@ main {
   outline: none;
 }
 
+.search-form-errors {
+  width: 95%;
+  max-width: 60rem;
+  margin: 1rem auto;
+  color: green;
+  list-style-type: none;
+}
+
 /* Search Results */
 
 .results {
