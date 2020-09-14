@@ -1,0 +1,22 @@
+{
+  "name": "sales_tax_app_v2",
+  "version": "1.0.0",
+  "description": "Sales Tax Search is a web application designed to assist tax preparers and accountants with the often tedious task of looking up sales tax rates.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelsinghurse/sales-tax-search-v2.git"
+  },
+  "author": "Michael Singhurse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelsinghurse/sales-tax-search-v2/issues"
+  },
+  "homepage": "https://github.com/michaelsinghurse/sales-tax-search-v2#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
