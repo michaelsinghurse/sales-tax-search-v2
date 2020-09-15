@@ -1,55 +1,49 @@
 "use strict";
 
-const config = require("./lib/config.js");
+const appRoot = require("app-root-path");
+const config = require(`${appRoot}/lib/config.js`);
 const express = require("express");
-const morgan = require("morgan");
-const path = require("path");
-const ratesRouter = require("./routes/ratesRouter.js");
-const winston = require("./lib/winston.js");
+const { getRates } = require(`${appRoot}/lib/ratesApi`);
+const { getLocation } = require(`${appRoot}/lib/locationApi`);
 
 const app = express();
 
 app.set("host", config.HOST);
 app.set("port", config.PORT);
-app.set("views", "./views");
-app.set("view engine", "hbs");
 
-app.use(morgan("short", { stream: winston.stream }));
-app.use("/", express.static(path.join(__dirname, "public")));
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
-// allow client to access node_modules folder
-app.use("/scripts", express.static(path.join(__dirname, "node_modules")));
-
-app.use("/api/rates", ratesRouter);
-
-app.get("/views/:view", function(req, res) {
-  const view = req.params.view;
-
-  switch (view) {
-    case "search":
-      res.render("search");
-      break;
-    case "about":
-      res.render("about");
-      break;
-    case "login":
-      res.render("login");
-      break;
-    case "404":
-      res.render("page-not-found");
-      break;
-  }
+const extractInputs = req => ({
+  street: req.query.street,
+  city: req.query.city,
+  state: req.query.state,
+  zip: req.query.zip,
+  country: req.query.country || "US",
+  searchId: req.query.searchId,
 });
 
-app.use("/", function(_req, res) {
-  res.render("index", { MAPS_KEY: config.MAPS_KEY_CLIENT });
+router.get("/api/rates", (req, res) => {
+  const inputs = extractInputs(req);
+
+  Promise.allSettled([getRates(inputs), getLocation(inputs)])
+    .then(results => {
+      if (results.every(result => result.status === "fulfilled")) {
+        res.json({
+          rates: results[0].value,
+          location: results[1].value,
+          inputs,
+        });
+      } else {
+        res.json({ inputs });
+      }
+    });
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  winston.error(`${err.status || 500} - ${err.stack} - ${req.originalUrl} - ` +
-    `${req.method} - ${req.ip}`);
-
   res.status(500).end();
 });
 
