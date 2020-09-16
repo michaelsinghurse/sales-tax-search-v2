@@ -1,7 +1,7 @@
 import React from "react";
 import mapErrorImg from "./images/map-error.png";
 
-export default class Map extends React.Component {
+export default class ResultsItemMap extends React.Component {
   componentDidMount() {
     const geocode = this.props.geocode ? JSON.parse(this.props.geocode) : "";
     const id = this.props.searchId;

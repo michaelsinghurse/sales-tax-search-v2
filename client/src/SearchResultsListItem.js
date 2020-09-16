@@ -1,6 +1,6 @@
 import React from "react";
 import CopyButton from "./CopyButton";
-import Map from "./Map";
+import ResultsItemMap from "./ResultsItemMap";
 
 export default function ResultsItem(props) {
   const inputs = props.inputs || {};
@@ -122,7 +122,7 @@ export default function ResultsItem(props) {
           </div>
         }
       </div>
-      <Map geocode={location.latLng} searchId={inputs.searchId} />
+      <ResultsItemMap geocode={location.latLng} searchId={inputs.searchId} />
     </li>
   );
 }
