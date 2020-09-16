@@ -1,7 +1,7 @@
 import React from "react";
 import "./Search.css";
 import SearchForm from "./SearchForm";
-import SearchResults from "./SearchResults";
+import SearchResultsList from "./SearchResultsList";
 
 const makeQueryString = object => {
   const keysAndValues = Object.keys(object).reduce((array, key) => {
@@ -50,7 +50,7 @@ export default class Search extends React.Component {
     return (
       <div id="search">
         <SearchForm onFormSubmit={this.handleFormSubmit} />
-        <SearchResults results={this.state.results} />
+        <SearchResultsList results={this.state.results} />
       </div>
     );
   }
