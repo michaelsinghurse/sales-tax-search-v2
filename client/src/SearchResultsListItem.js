@@ -2,7 +2,7 @@ import React from "react";
 import CopyButton from "./CopyButton";
 import ResultsItemMap from "./ResultsItemMap";
 
-export default function ResultsItem(props) {
+export default function SearchResultsListItem(props) {
   const inputs = props.inputs || {};
   const location = props.location || {};
   const rates = props.rates || {};
