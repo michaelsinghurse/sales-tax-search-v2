@@ -3,7 +3,7 @@ import mapErrorImg from "./images/map-error.png";
 
 export default class Map extends React.Component {
   componentDidMount() {
-    const geocode = JSON.parse(this.props.geocode);
+    const geocode = this.props.geocode ? JSON.parse(this.props.geocode) : "";
     const id = this.props.searchId;
 
     const element = document.querySelector(`#search${id} .map`);
