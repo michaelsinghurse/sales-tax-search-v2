@@ -25,7 +25,7 @@ const extractInputs = req => ({
   searchId: req.query.searchId,
 });
 
-router.get("/api/rates", (req, res) => {
+app.get("/api/rates", (req, res) => {
   const inputs = extractInputs(req);
 
   Promise.allSettled([getRates(inputs), getLocation(inputs)])
