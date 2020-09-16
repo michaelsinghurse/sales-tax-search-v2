@@ -1,11 +1,11 @@
 import React from "react";
-import ResultsItem from "./ResultsItem";
+import SearchResultsListItem from "./SearchResultsListItem";
 
 export default function SearchResults(props) {
   const results = props.results;
   
   const listItems = results.map(result => (
-    <ResultsItem
+    <SearchResultsListItem
       key={"searchId" + result.inputs.searchId}
       inputs={result.inputs}
       location={result.location}
