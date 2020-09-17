@@ -1,10 +1,5 @@
 /* Search Form */
 
-main {
-  min-height: 30rem;
-  flex: 1 0 auto;
-}
-
 .search-form {
   width: 95%;
   max-width: 60rem;
