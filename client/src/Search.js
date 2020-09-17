@@ -33,6 +33,12 @@ export default class Search extends React.Component {
     const url = "/api/rates?" + makeQueryString(address);
 
     fetch(url)
+      .then(response => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error(response.statusText);
+      })
       .then(response => response.json())
       .then(data => {
         this.setState((state, _props) => {
