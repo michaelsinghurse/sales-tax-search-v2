@@ -49,7 +49,7 @@ export default class Search extends React.Component {
           };
         });
       })
-      .catch(error => console.log("Error:", error));
+      .catch(_error => {});
   }
 
   render() {
