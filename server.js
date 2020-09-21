@@ -5,6 +5,7 @@ const config = require(`${appRoot}/lib/config.js`);
 const express = require("express");
 const { getRates } = require(`${appRoot}/lib/ratesApi`);
 const { getLocation } = require(`${appRoot}/lib/locationApi`);
+const path = require("path");
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.set("port", config.PORT);
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join("client", "build")));
 }
 
 const extractInputs = req => ({
@@ -40,6 +41,11 @@ app.get("/api/rates", (req, res) => {
         res.json({ inputs });
       }
     });
+});
+
+// catch-all: respond with index.html file
+app.get("*", (req, res) => {
+  res.sendFile(path.join("client", "build", "index.html"));
 });
 
 // error handler
