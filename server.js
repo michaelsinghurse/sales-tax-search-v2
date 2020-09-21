@@ -45,7 +45,7 @@ app.get("/api/rates", (req, res) => {
 
 // catch-all: respond with index.html file
 app.get("*", (req, res) => {
-  res.sendFile(path.join("client", "build", "index.html"));
+  res.sendFile(path.resolve("client", "build", "index.html"));
 });
 
 // error handler
