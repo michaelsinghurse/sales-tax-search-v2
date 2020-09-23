@@ -24,7 +24,7 @@ export default class ResultsItemMap extends React.Component {
     } else {
       const img = document.createElement("img");
       img.setAttribute("src", mapErrorImg);
-      element.append(img);
+      element.appendChild(img);
     }
   }
 
