@@ -69,6 +69,7 @@ Here is what all that looks like:
 ```javascript
 // client/src/SearchForm.js
 
+// helper function external to the class
 const validateElementValue = (elementName, elementValue) => {
   let errorMessage = "";
 
@@ -100,16 +101,20 @@ const validateElementValue = (elementName, elementValue) => {
   return errorMessage;
 };
 
-handleChange(event) {
-  const { name, value } = event.target;
-  const errors = this.state.errors;
-  
-  errors[name] = validateElementValue(name, value);
+export default class AddressForm extends React.Component {
+// ...
+  handleChange(event) {
+    const { name, value } = event.target;
+    const errors = this.state.errors;
+    
+    errors[name] = validateElementValue(name, value);
 
-  this.setState({
-    [name]: value,
-    errors,
-  });
+    this.setState({
+      [name]: value,
+      errors,
+    });
+  }
+// ...
 }
 ```
 
