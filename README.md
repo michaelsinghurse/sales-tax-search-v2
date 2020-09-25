@@ -9,15 +9,17 @@ https://github.com/michaelsinghurse/sales-tax-search.*
 
 ## Technical Challenges
 ### Validating Form Input
-#### Controlled Components
-React has the concept of "controlled components", which is a form element
-whose value is controlled by React rather than the element itself. Instead of,
-say, an input element or a textarea element maintaining its own state 
-internally, React maintains the state and renders it whenever the state changes.
+One challenge I faced was about how to validate form inputs. 
 
-In the form to enter the address to determine the sales tax rates, I have 
-four input elements, one each for the street, city, state, and
-zip code. Here is what the JSX looks like:
+React has the concept of "controlled component", which is a form element
+whose value is controlled by React rather than the element itself. Instead of
+a form element maintaining its own state internally, React maintains the state 
+and renders it whenever the state changes. React is said to be the source of 
+truth for the element.
+
+You can see this in the code below. Each input element's value is set
+by React when it's rendered, and whenever the value is changed by the user, a 
+callback function is triggered to handle the new value.
 
 ```javascript
 // client/src/SearchForm.js
@@ -55,14 +57,14 @@ zip code. Here is what the JSX looks like:
 </form>
 ```
 
-Each time the value of one of the input elements changes, the `onChange` event
-fires and calls the `handleChange` callback function. Within the callback
-function, I take several steps. I first extract the element's name and value 
-from the event object, then I validate the value using a separate function. If
+Within the callback function, I extract the element's name and value 
+from the event object and validate the value using a separate function. If
 there is a problem with the value, a message will be added to an error object,
-which enables React to render an error message to the DOM. Finally, I set the 
-state of the input element and its error message. This is what the code looks 
-like:
+which which will be displayed to the user when the form renders again. 
+Finally, I set the state of the input element and its error message, if there
+is one.
+
+Here is what all that looks like:
 
 ```javascript
 // client/src/SearchForm.js
@@ -114,18 +116,6 @@ handleChange(event) {
 I'd like here to give credit to Eric Bishard for his article about [React form
 validation](https://www.telerik.com/blogs/up-and-running-with-react-form-validation). 
 I leaned on it to set up my validation logic for the input elements. 
-
-If you reference back to the code block showing the JSX for the form, you can see
-that the value of each input element is controlled by the React 
-state object. This is what it means to be a "controlled component" then - React
-is handling the changes to the input elements, validating the new value, adding
-the new value to the state object, and then re-rendering the element with its
-value determined by React's state. React is the single source of truth.
-
-#### Displaying Error Messages
-
-#### Preventing Form Submission if Errors Exist
-
 
 ### Setting up the Production Server
 
