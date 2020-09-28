@@ -19,7 +19,8 @@ response to all other requests by sending the `index.html` file.
 
 ## Technical Challenges
 ### Validating Form Input
-One challenge I faced was about how to validate form inputs. 
+One challenge I faced was about how to validate form inputs. The code for the
+form can be found in `./client/src/SearchForm.js`.
 
 React has the concept of "controlled component", which is a form element
 whose value is controlled by React rather than the element itself. Instead of
@@ -27,9 +28,15 @@ a form element maintaining its own state internally, React maintains the state
 and renders it whenever the state changes. React is said to be the source of 
 truth for the element.
 
-You can see this in the code below. Each input element's value is set
-by React when it's rendered, and whenever the value is changed by the user, a 
-callback function is triggered to handle the new value.
+I handled form validation in two ways:
+
+1. Whenever a form input element changed, a ran the new value through a validation
+function. The validation function returned either an error message or an empty
+string (an empty string means that the value was valid). I then set the state of 
+the React component with the new input value and the validation error message.
+If there was an error, it would be displayed below the form.
+
+![form-err.png](form-error.png)
 
 ```javascript
 // client/src/SearchForm.js
