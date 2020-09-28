@@ -7,6 +7,16 @@ accountants with the often tedious task of looking up sales tax rates.
 any front-end frameworks or routing libraries. Here's the link to it: 
 https://github.com/michaelsinghurse/sales-tax-search.*
 
+## Architecture
+The app was built with [Create React App](https://create-react-app.dev/). All
+the HTML files are generated at build time with the `npm run build` command and
+served from the `./client/build` folder. 
+
+The server has three responsibilities: allow incoming requests to use the 
+`./client/build` folder containing the static resources, respond to requests to 
+the API endpoint for tax rates and political boundaries, and provide a catch-all 
+response to all other requests by sending the `index.html` file. 
+
 ## Technical Challenges
 ### Validating Form Input
 One challenge I faced was about how to validate form inputs. 
