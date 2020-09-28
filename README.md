@@ -30,114 +30,29 @@ truth for the element.
 
 I handled form validation in two ways:
 
-1. Whenever a form input element changed, a ran the new value through a validation
-function. The validation function returned either an error message or an empty
+1. Whenever a form input element changes, a run the new value through a validation
+function. The validation function returns either an error message or an empty
 string (an empty string means that the value was valid). I then set the state of 
 the React component with the new input value and the validation error message.
-If there was an error, it would be displayed below the form.
+If there was an error, it will then be rendered directly below the form.
 
 ![form-err.png](form-error.png)
 
-```javascript
-// client/src/SearchForm.js
-
-<form 
-  noValidate
-  className="search-form" 
-  onSubmit={this.handleSubmit} >
-  <fieldset>
-    <legend>Enter Your Sales Location</legend>
-    <ul> 
-      <li>
-        <label htmlFor="street" className="label-street">Street:</label>
-        <input id="street" name="street" type="text" className="input-street" 
-          value={this.state.street} onChange={this.handleChange} />
-      </li>
-      <li>
-        <label htmlFor="city">City:</label>
-        <input id="city" name="city" type="text" className="input-city" 
-          value={this.state.city} onChange={this.handleChange} />
-      </li>
-      <li>
-        <label htmlFor="state">State:</label>
-        <input id="state" name="state" type="text" className="input-state"
-          value={this.state.state} onChange={this.handleChange} />
-      </li>
-      <li>
-        <label htmlFor="zip">Zip:</label>
-        <input id="zip" name="zip" type="text" className="input-zip" 
-          value={this.state.zip} onChange={this.handleChange} />
-      </li>
-    </ul> 
-  </fieldset>
-  <button type="submit">Find Rates</button>
-</form>
-```
-
-Within the callback function, I extract the element's name and value 
-from the event object and validate the value using a separate function. If
-there is a problem with the value, a message will be added to an error object,
-which which will be displayed to the user when the form renders again. 
-Finally, I set the state of the input element and its error message, if there
-is one.
-
-Here is what all that looks like:
-
-```javascript
-// client/src/SearchForm.js
-
-// helper function external to the class
-const validateElementValue = (elementName, elementValue) => {
-  let errorMessage = "";
-
-  switch (elementName) {
-    case "street":
-      errorMessage = elementValue.trim().length > 0
-        ? ""
-        : "Street is required.";
-      break;
-    case "city":
-      errorMessage = elementValue.trim().length > 0 
-        ? ""
-        : "City is required.";
-      break;
-    case "state":
-      errorMessage = /^[A-Za-z]{2}$/.test(elementValue)
-        ? ""
-        : "State must contain the two-letter state abbreviation.";
-      break;
-    case "zip":
-      errorMessage = /^\d{5}$/.test(elementValue)
-        ? ""
-        : "Zip must contain the 5-digit zip code.";
-      break;
-    default:
-      break;
-  }
-
-  return errorMessage;
-};
-
-export default class AddressForm extends React.Component {
-// ...
-  handleChange(event) {
-    const { name, value } = event.target;
-    const errors = this.state.errors;
-    
-    errors[name] = validateElementValue(name, value);
-
-    this.setState({
-      [name]: value,
-      errors,
-    });
-  }
-// ...
-}
-```
-
-I'd like here to give credit to Eric Bishard for his article about [React form
+I need to give credit here to Eric Bishard for his article about [React form
 validation](https://www.telerik.com/blogs/up-and-running-with-react-form-validation). 
-I leaned on it to set up my validation logic for the input elements. 
+I leaned on it heavily to set up my validation logic and for rendering the error
+message. 
+
+2. When the user submits the form, I prevent the default action of the browser
+handling the submit. I gather the value of every input element and run each of
+them through the validation function. If any of the input values produce an
+error message, then I immediately set the state of the component with the new 
+error messages and return. I don't send any requests to the server. On the other
+hand, if all of the input values are valid, and then send a fetch to the server
+for the tax rates and political jurisdictions for the address entered.
+
+Once again, all my code for the form can be found in the file
+`./client/src/SearchForm.js`.
 
 ### Setting up the Production Server
 
