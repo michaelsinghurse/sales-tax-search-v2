@@ -28,9 +28,12 @@ a form element maintaining its own state internally, React maintains the state
 and renders it whenever the state changes. React is said to be the source of 
 truth for the element.
 
-I handled form validation in two ways:
+Because React is maintaining the state of the form elements, I didn't rely on
+browswer form validation via the `pattern` or `required` input element attributes.
 
-1. Whenever a form input element changes, a run the new value through a validation
+I went about validated the form inputs in two ways:
+
+1. **On element change.** Whenever a form input element changes, a run the new value through a validation
 function. The validation function returns either an error message or an empty
 string (an empty string means that the value was valid). I then set the state of 
 the React component with the new input value and the validation error message.
@@ -43,7 +46,7 @@ validation](https://www.telerik.com/blogs/up-and-running-with-react-form-validat
 I leaned on it heavily to set up my validation logic and for rendering the error
 message. 
 
-2. When the user submits the form, I prevent the default action of the browser
+2. **On form submit.** When the user submits the form, I prevent the default action of the browser
 handling the submit. I gather the value of every input element and run each of
 them through the validation function. If any of the input values produce an
 error message, then I immediately set the state of the component with the new 
