@@ -12,10 +12,13 @@ The app was built with [Create React App](https://create-react-app.dev/). All
 the HTML files are generated at build time with the `npm run build` command and
 served from the `./client/build` folder. 
 
-The server has three responsibilities: allow incoming requests to use the 
-`./client/build` folder containing the static resources, respond to requests to 
-the API endpoint for tax rates and political boundaries, and provide a catch-all 
-response to all other requests by sending the `index.html` file. 
+Client-side routing is managed by [React-Router](https://reactrouter.com/).
+
+The server uses the [Express](https://expressjs.com/) framework. It has three 
+primary responsibilities: allow incoming requests to use the 
+`./client/build` folder for static resources, respond to requests to 
+the API endpoint for tax rates and political jurisdictions, and provide a 
+catch-all response to all other requests by sending the `index.html` file. 
 
 ## Technical Challenges
 ### Validating Form Input
@@ -59,9 +62,6 @@ entered.
 
 Once again, all my code for the form can be found in the file
 `./client/src/SearchForm.js`.
-
-### Setting up the Production Server
-
 
 ## Author
 * Michael Singhurse
