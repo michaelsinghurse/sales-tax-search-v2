@@ -12,7 +12,7 @@ const app = express();
 app.set("host", config.HOST);
 app.set("port", config.PORT);
 
-// Express only serves static assets in production
+// Express serves static assets only in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join("client", "build")));
 }
