@@ -37,28 +37,28 @@ browser form validation via the `pattern` or `required` attributes.
 
 I went about validating the form inputs in two ways:
 
-1. **On element change.** Whenever a form input element changes, I run the new 
+1. **On input change.** Whenever a form input value changes, I run the new 
 value through a validation function. The validation function returns either an 
-error message or an empty string (an empty string means that the value was 
+error message or an empty string (an empty string means that the value is 
 valid). I then set the state of the React component with the new input value 
 and the validation error message. If there was an error, it will be rendered 
 directly below the form, as shown below.
 
 ![form-err.png](form-error.png)
 
-Note: I should give credit here to Eric Bishard for his article about [React form
-validation](https://www.telerik.com/blogs/up-and-running-with-react-form-validation). 
-I leaned on it heavily to set up my validation logic and for rendering the error
-message. 
+> Note: I should give credit here to Eric Bishard for his article about 
+> [React form validation](https://www.telerik.com/blogs/up-and-running-with-react-form-validation). 
+> I leaned on it heavily to set up my validation logic and for rendering the error
+> message. 
 
 2. **On form submit.** When the user submits the form, I prevent the default 
 action of the browser handling the submit. I gather the value of every input 
-element and run each of them through the validation function. If any of the 
-values produce an error message, I set the state of the component with the new 
-error messages and return immediately. I don't send a request to the server or 
-reset the form. On the other hand, if all of the input values are valid, I send 
-a fetch to the server for the tax rates and political jurisdictions for the address 
-entered.
+element and run each of them through the validation function. If any input 
+value produces an error message, I set the state of the React component with 
+the new input values and error messages and return immediately. I don't send a 
+request to the server or reset the form. On the other hand, if all of the input 
+values are valid, I send a fetch to the server for the tax rates and political 
+jurisdictions for the address entered and reset the form.
 
 Once again, all my code for the form can be found in the file
 `./client/src/SearchForm.js`.
